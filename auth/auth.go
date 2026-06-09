@@ -42,7 +42,7 @@ func SetupAuthRoutes(router *gin.Engine) {
 			true,
 		)
 
-		context.JSON(http.StatusOK, gin.H{"message": "logged in"})
+		context.JSON(http.StatusOK, gin.H{"token": sessionID, "user": u})
 	})
 
 	router.GET("/auth/me", isAuhenticated(), func(context *gin.Context) {
