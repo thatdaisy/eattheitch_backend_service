@@ -6,30 +6,97 @@ import (
 	"errors"
 	"log"
 	"os"
+	"strings"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
-func check(e error) {
-	if e != nil {
-		panic(e)
+const usersFile = "models/mock/users.json"
+
+func LoadUsers() ([]models.User, error) {
+	data, err := readUserJson()
+	if err != nil {
+		log.Printf("could not read users from users.json - %s", err.Error())
+		return []models.User{}, nil
 	}
-}
-
-func GetUserFormEmail(email string) (*models.User, error) {
-	dat, err := os.ReadFile("models/mock/users.json")
-	check(err)
-
-	log.Printf("json dat: %s", dat)
 
 	var users []models.User
-	if err := json.Unmarshal(dat, &users); err != nil {
-		panic(err)
+	if err := json.Unmarshal(data, &users); err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
+func SaveUsers(users []models.User) error {
+	data, err := json.MarshalIndent(users, "", "  ")
+	if err != nil {
+		return err
 	}
 
-	for i := range users {
-		if users[i].Email == email {
-			log.Printf("found user: %s, %s, %s, %s", users[i].Email, users[i].Password, users[i].Username, users[i].Location)
-			return &users[i], nil
+	return os.WriteFile(usersFile, data, 0644)
+}
+
+func GetUserForEmail(email string) (*models.User, error) {
+	users, err := LoadUsers()
+	if err != nil {
+		return nil, err
+	}
+
+	for _, user := range users {
+		if strings.EqualFold(user.Email, email) {
+			return &user, nil
 		}
 	}
 	return nil, errors.New("user not found " + email)
+}
+
+func GetUserForUsername(username string) (*models.User, error) {
+	users, err := LoadUsers()
+	if err != nil {
+		return nil, err
+	}
+	for _, user := range users {
+		if strings.EqualFold(user.Username, username) {
+			return &user, nil
+		}
+	}
+	return nil, errors.New("user not found " + username)
+}
+
+func hashUserPassword(password string) ([]byte, error) {
+	passwordHash, err := bcrypt.GenerateFromPassword(
+		[]byte(password),
+		bcrypt.DefaultCost,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return passwordHash, nil
+}
+
+func VerifyUserPassword(email string, password string) error {
+	user, err := GetUserForEmail(email)
+	if err != nil {
+		return err
+	}
+	if compareResult := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password)); compareResult != nil {
+		return compareResult
+	}
+	return nil
+}
+
+func readUserJson() ([]byte, error) {
+	if _, err := os.Stat(usersFile); errors.Is(err, os.ErrNotExist) {
+		return nil, err
+	}
+
+	data, err := os.ReadFile(usersFile)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(data) == 0 {
+		return nil, errors.New("file empty")
+	}
+	return data, nil
 }

@@ -12,7 +12,7 @@ import (
 
 // Session model
 type Session struct {
-	Username  string
+	Email     string
 	ExpiresAt time.Time
 }
 
@@ -22,11 +22,11 @@ var (
 	mu       sync.Mutex
 )
 
-func isAuhenticated() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		sessionID, err := c.Cookie("session_id")
+func IsAuhenticated() gin.HandlerFunc {
+	return func(context *gin.Context) {
+		sessionID, err := context.Cookie("session_id")
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "no session"})
+			context.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "no session"})
 			return
 		}
 
@@ -35,13 +35,12 @@ func isAuhenticated() gin.HandlerFunc {
 		mu.Unlock()
 
 		if !exists || time.Now().After(session.ExpiresAt) {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "invalid session"})
+			context.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "invalid session"})
 			return
 		}
 
-		// attach user info to context
-		c.Set("username", session.Username)
-		c.Next()
+		context.Set("email", session.Email)
+		context.Next()
 	}
 }
 
@@ -52,12 +51,12 @@ func generateSessionID() string {
 	return hex.EncodeToString(b)
 }
 
-func createSession(username string) string {
+func createSession(email string) string {
 	sessionID := generateSessionID()
 
 	mu.Lock()
 	sessions[sessionID] = Session{
-		Username:  username,
+		Email:     email,
 		ExpiresAt: time.Now().Add(30 * time.Minute),
 	}
 	mu.Unlock()

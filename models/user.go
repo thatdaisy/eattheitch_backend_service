@@ -7,10 +7,10 @@ import (
 )
 
 type User struct {
-	ID        uuid.UUID `json:"id"`
-	Username  string    `json:"username"`
-	Email     string    `json:"email"`
-	Location  string    `json:"location,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	Password  string    `json:"password"`
+	ID           uuid.UUID `json:"id"`
+	Username     string    `json:"username"`
+	Email        string    `json:"email"`
+	Location     string    `json:"location,omitempty"`
+	CreatedAt    time.Time `json:"created_at"`
+	PasswordHash string    `json:"passwordHash,omitempty"`
 }

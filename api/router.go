@@ -31,7 +31,10 @@ func SetupRoutes() *gin.Engine {
 		MaxAge:           12 * time.Hour,
 	}))
 
-	auth.SetupAuthRoutes(router)
+	router.POST("/auth/register", auth.Register)
+	router.POST("/auth/login", auth.Login)
+	router.GET("/auth/current", auth.IsAuhenticated(), auth.Current)
+	router.POST("/auth/logout", auth.IsAuhenticated(), auth.Logout)
 
 	return router
 }
