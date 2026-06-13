@@ -19,5 +19,12 @@
     "email": "knitwear.rebel@example.com",
     "created_at": "0001-01-01T00:00:00Z",
     "passwordHash": "$2a$10$brUojg6juF4kMek1WM5AJex9qQKpdOgph82QaR/pthwiyTJK2nxeS"
+  },
+  {
+    "id": "7b9d8c62-a62d-4a8b-b239-5e8e970500ad",
+    "username": "wool.wanderer",
+    "email": "wool.wanderer@example.com",
+    "created_at": "0001-01-01T00:00:00Z",
+    "passwordHash": "$2a$10$Brh01uvip0XxgMsWM6pBbub4aroa.rec9xiEOgCsY33GBfuCmCj1."
   }
 ]

@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"eattheitch/backend/auth"
+	"eattheitch/backend/handler"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -35,6 +36,10 @@ func SetupRoutes() *gin.Engine {
 	router.POST("/auth/login", auth.Login)
 	router.GET("/auth/current", auth.IsAuhenticated(), auth.Current)
 	router.POST("/auth/logout", auth.IsAuhenticated(), auth.Logout)
+
+	router.GET("/brands", auth.IsAuhenticated(), handler.GetBrands)
+
+	router.GET("/reviews", auth.IsAuhenticated(), handler.GetReviews)
 
 	return router
 }
