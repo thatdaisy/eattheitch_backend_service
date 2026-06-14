@@ -2,10 +2,10 @@ package services
 
 import (
 	"eattheitch/backend/models"
+	"eattheitch/backend/utils"
 	"encoding/json"
 	"errors"
 	"log"
-	"os"
 	"strings"
 
 	"golang.org/x/crypto/bcrypt"
@@ -14,7 +14,7 @@ import (
 const usersFile = "models/mock/users.json"
 
 func LoadUsers() ([]models.User, error) {
-	data, err := readUserJson()
+	data, err := utils.ReadJson(usersFile)
 	if err != nil {
 		log.Printf("could not read users from users.json - %s", err.Error())
 		return []models.User{}, nil
@@ -28,12 +28,10 @@ func LoadUsers() ([]models.User, error) {
 }
 
 func SaveUsers(users []models.User) error {
-	data, err := json.MarshalIndent(users, "", "  ")
-	if err != nil {
+	if err := utils.WriteJson(usersFile, users); err != nil {
 		return err
 	}
-
-	return os.WriteFile(usersFile, data, 0644)
+	return nil
 }
 
 func GetUserForEmail(email string) (*models.User, error) {
@@ -83,20 +81,4 @@ func VerifyUserPassword(email string, password string) error {
 		return compareResult
 	}
 	return nil
-}
-
-func readUserJson() ([]byte, error) {
-	if _, err := os.Stat(usersFile); errors.Is(err, os.ErrNotExist) {
-		return nil, err
-	}
-
-	data, err := os.ReadFile(usersFile)
-	if err != nil {
-		return nil, err
-	}
-
-	if len(data) == 0 {
-		return nil, errors.New("file empty")
-	}
-	return data, nil
 }

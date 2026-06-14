@@ -23,7 +23,6 @@ type AuthResponse struct {
 
 func Register(context *gin.Context) {
 	var req RegisterRequest
-
 	if err := context.ShouldBindJSON(&req); err != nil {
 		context.JSON(http.StatusUnprocessableEntity, gin.H{
 			"error": err.Error(),
@@ -72,13 +71,11 @@ func Register(context *gin.Context) {
 		return
 	}
 
-	// Remove password hash from response
 	responseUser := newUser
 	responseUser.PasswordHash = ""
 
 	context.JSON(http.StatusCreated, AuthResponse{
-		Token: "", // replace with JWT generation if needed
-		User:  responseUser,
+		User: responseUser,
 	})
 }
 

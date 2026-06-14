@@ -2,7 +2,7 @@ package utils
 
 func Paginate[T any](items []T, page, pageSize int) ([]T, int, int) {
 	total := len(items)
-	totalPages := (total + pageSize - 1) / pageSize // ceiling division
+	totalPages := (total + pageSize - 1) / pageSize
 
 	if page < 1 {
 		page = 1

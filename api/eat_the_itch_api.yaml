@@ -1,0 +1,527 @@
+openapi: 3.1.0
+
+info:
+  title: Eat the Itch API
+  description: >
+    REST API for Eat the Itch — a community platform for conscious crafters
+    to discover, rate, and review sustainable wool and yarn brands, and
+    connect through the craftivism movement.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: Auth
+    description: Registration, login and session management
+  - name: Brands
+    description: Yarn and wool brand discovery and details
+  - name: Reviews
+    description: Community reviews for brands
+
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Log in and receive a session token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: Invalidate the current session token
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Logged out successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/current:
+    get:
+      tags: [Auth]
+      summary: Get the currently authenticated user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /brands:
+    get:
+      tags: [Brands]
+      summary: List and search brands
+      parameters:
+        - name: q
+          in: query
+          description: Full-text search query
+          schema:
+            type: string
+          example: merino
+        - name: certified
+          in: query
+          description: Filter by certification (GOTS, RWS, oeko-tex)
+          schema:
+            type: string
+            enum: [GOTS, RWS, oeko-tex]
+        - name: min_eco_score
+          in: query
+          description: Minimum eco score (1–5)
+          schema:
+            type: number
+            minimum: 1
+            maximum: 5
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: Paginated list of brands
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandList'
+
+  /brands/{brandId}:
+    get:
+      tags: [Brands]
+      summary: Get a single brand by ID
+      parameters:
+        - $ref: '#/components/parameters/brandId'
+      responses:
+        '200':
+          description: Brand details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Brand'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /brands/{brandId}/reviews:
+    get:
+      tags: [Reviews]
+      summary: Get all reviews for a brand
+      parameters:
+        - $ref: '#/components/parameters/brandId'
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [newest, oldest, highest_rated, lowest_rated]
+            default: newest
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Paginated list of reviews
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewList'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    post:
+      tags: [Reviews]
+      summary: Submit a review for a brand
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/brandId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewRequest'
+      responses:
+        '201':
+          description: Review created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: User has already reviewed this brand
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /reviews/{reviewId}:
+    delete:
+      tags: [Reviews]
+      summary: Delete own review
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/reviewId'
+      responses:
+        '204':
+          description: Review deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    brandId:
+      name: brandId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    reviewId:
+      name: reviewId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    campaignId:
+      name: campaignId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid authentication token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Authenticated but not allowed to perform this action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: Resource already exists
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
+
+  schemas:
+
+    RegisterRequest:
+      type: object
+      required: [username, email, password]
+      properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 30
+          example: stitch.witch.at
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        password:
+          type: string
+          minLength: 8
+          format: password
+
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT bearer token
+        user:
+          $ref: '#/components/schemas/User'
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+          example: stitch.witch.at
+        email:
+          type: string
+          format: email
+        location:
+          type: string
+          example: Vienna, AT
+        created_at:
+          type: string
+          format: date-time
+
+    # ── BRANDS ──────────────────────────────────────────────
+
+    Brand:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: Malabrigo
+        origin_country:
+          type: string
+          example: Uruguay
+        description:
+          type: string
+        certifications:
+          type: array
+          items:
+            type: string
+            enum: [GOTS, RWS, oeko-tex, fair-trade]
+          example: [RWS, oeko-tex]
+        eco_score:
+          type: number
+          format: float
+          minimum: 1
+          maximum: 5
+          description: Aggregate community eco score
+          example: 4.3
+        avg_softness:
+          type: number
+          format: float
+          example: 4.8
+        avg_quality:
+          type: number
+          format: float
+          example: 4.7
+        avg_price_value:
+          type: number
+          format: float
+          example: 3.9
+        avg_rating:
+          type: number
+          format: float
+          example: 4.6
+        review_count:
+          type: integer
+          example: 142
+        created_at:
+          type: string
+          format: date-time
+
+    BrandList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Brand'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    ReviewRequest:
+      type: object
+      required: [rating_overall, rating_softness, rating_quality, rating_price_value, body]
+      properties:
+        rating_overall:
+          type: integer
+          minimum: 1
+          maximum: 5
+          example: 5
+        rating_softness:
+          type: integer
+          minimum: 1
+          maximum: 5
+          example: 5
+        rating_quality:
+          type: integer
+          minimum: 1
+          maximum: 5
+          example: 4
+        rating_price_value:
+          type: integer
+          minimum: 1
+          maximum: 5
+          example: 4
+        rating_eco:
+          type: integer
+          minimum: 1
+          maximum: 5
+          example: 5
+        body:
+          type: string
+          minLength: 20
+          maxLength: 2000
+          example: Gorgeous hand-dyed colours and incredibly soft. Perfect for colourwork shawls.
+
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        brand_id:
+          type: string
+          format: uuid
+        author:
+          $ref: '#/components/schemas/User'
+        rating_overall:
+          type: integer
+        rating_softness:
+          type: integer
+        rating_quality:
+          type: integer
+        rating_price_value:
+          type: integer
+        rating_eco:
+          type: integer
+        body:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    ReviewList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        per_page:
+          type: integer
+          example: 20
+        total:
+          type: integer
+          example: 142
+        total_pages:
+          type: integer
+          example: 8
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: resource not found
+        message:
+          type: string
+          example: No brand found with the given ID
+
+    ValidationError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: validation failed
+        fields:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            email: must be a valid email address
+            password: must be at least 8 characters
