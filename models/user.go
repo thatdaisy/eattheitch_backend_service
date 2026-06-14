@@ -14,3 +14,5 @@ type User struct {
 	CreatedAt    time.Time `json:"created_at"`
 	PasswordHash string    `json:"passwordHash,omitempty"`
 }
+
+func (u *User) GetID() uuid.UUID { return u.ID }

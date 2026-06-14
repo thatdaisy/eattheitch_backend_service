@@ -55,7 +55,7 @@ func Register(context *gin.Context) {
 		CreatedAt:    time.Now(),
 	}
 
-	if err := services.SaveUser(newUser); err != nil {
+	if err := services.SaveUser(&newUser); err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{
 			"error": "failed to save user",
 		})

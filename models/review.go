@@ -21,3 +21,5 @@ type Review struct {
 
 	CreatedAt time.Time `json:"created_at"`
 }
+
+func (r *Review) GetID() uuid.UUID { return r.ID }

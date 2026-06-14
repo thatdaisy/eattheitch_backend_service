@@ -12,10 +12,10 @@ import (
 )
 
 type BrandsResponse struct {
-	Brands     []models.Brand `json:"brands"`
-	Page       int            `json:"page"`
-	Total      int            `json:"total"`
-	TotalPages int            `json:"total_pages"`
+	Brands     []*models.Brand `json:"brands"`
+	Page       int             `json:"page"`
+	Total      int             `json:"total"`
+	TotalPages int             `json:"total_pages"`
 }
 
 func GetBrands(context *gin.Context) {

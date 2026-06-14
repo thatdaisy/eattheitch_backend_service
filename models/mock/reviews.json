@@ -394,5 +394,17 @@
     "rating_eco": 5,
     "text": "This is a test rating",
     "created_at": "2026-06-14T13:31:28.772145+02:00"
+  },
+  {
+    "id": "d610256c-7d14-4a01-b2c1-8d731b477eb0",
+    "brand_id": "b0000015-0000-4000-8000-000000000015",
+    "author": "emmi_the_dog",
+    "rating_overall": 5,
+    "rating_softness": 5,
+    "rating_quality": 4,
+    "rating_price_value": 4,
+    "rating_eco": 5,
+    "text": "This is a test rating",
+    "created_at": "2026-06-14T16:12:11.897006+02:00"
   }
 ]

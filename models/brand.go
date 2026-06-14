@@ -22,3 +22,5 @@ type Brand struct {
 
 	CreatedAt time.Time `json:"created_at"`
 }
+
+func (b *Brand) GetID() uuid.UUID { return b.ID }

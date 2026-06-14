@@ -7,13 +7,6 @@
     "passwordHash": "$2a$10$4VmNMLWFjmOK1zfWAebU3.9xSwIL5uXOfNPDQt5YEHea4UNeHpLdO"
   },
   {
-    "id": "88b7ebf5-4f99-484d-bacd-e6f605a7c95a",
-    "username": "stitch.witch",
-    "email": "stitch.witch@example.com",
-    "created_at": "0001-01-01T00:00:00Z",
-    "passwordHash": "$2a$10$7czg.yyAr0T9vrtpIr5G7e/k.HqU6J3k6Nx1yfHWWNjndU.wJLDiy"
-  },
-  {
     "id": "68521ba6-e2eb-4851-9cb4-bcc65d306ece",
     "username": "knitwear_rebel",
     "email": "knitwear.rebel@example.com",
@@ -33,5 +26,12 @@
     "email": "fibre.folk@example.com",
     "created_at": "0001-01-01T00:00:00Z",
     "passwordHash": "$2a$10$FkPrOIP3v1VEHDKJIsbLuek2IX99N4af22BzqtCove2F8q3xydala"
+  },
+  {
+    "id": "13362f40-8606-49c7-9831-bc3913140e7b",
+    "username": "stitch.witch",
+    "email": "stitch.witch@example.com",
+    "created_at": "2026-06-14T16:10:23.928452+02:00",
+    "passwordHash": "$2a$10$MpeKEPVZxJzDFdR6VSLc7ufkb0Tvi1F.ZFfBpuqPcptuLwqPSNJT6"
   }
 ]
