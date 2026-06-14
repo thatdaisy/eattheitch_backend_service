@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
@@ -58,6 +59,16 @@ func Register(context *gin.Context) {
 	if err := services.SaveUser(&newUser); err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{
 			"error": "failed to save user",
+		})
+		return
+	}
+
+	session := sessions.Default(context)
+	session.Set("email", req.Email)
+
+	if err := session.Save(); err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"error": "failed to save session",
 		})
 		return
 	}

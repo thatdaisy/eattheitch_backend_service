@@ -2,16 +2,27 @@ package auth
 
 import (
 	"eattheitch/backend/services"
+	"time"
 
 	"log"
 	"net/http"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 type LoginRequest struct {
 	Email    string `json:"email" binding:"required,email"`
 	Password string `json:"password" binding:"required,min=8"`
+}
+
+type SecureUserResponse struct {
+	ID        uuid.UUID `json:"id"`
+	Username  string    `json:"username"`
+	Email     string    `json:"email"`
+	Location  string    `json:"location,omitempty"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 func Login(context *gin.Context) {
@@ -26,40 +37,50 @@ func Login(context *gin.Context) {
 		log.Printf("invalid credentials: %s, %s", req.Email, req.Password)
 		return
 	}
-	user, err := services.GetUserForEmail(req.Email)
-	if err != nil {
+
+	session := sessions.Default(context)
+	session.Set("email", req.Email)
+
+	if err := session.Save(); err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"error": "failed to save session",
+		})
 		return
 	}
 
-	sessionID := createSession(user.Email)
-
-	// set cookie
-	context.SetCookie(
-		"session_id",
-		sessionID,
-		1800, // 30 minutes
-		"/",
-		"",
-		false,
-		true,
-	)
-
-	context.JSON(http.StatusOK, gin.H{"token": sessionID, "user": user})
+	context.JSON(http.StatusOK, gin.H{"message": "logged in"})
 }
 
 func Current(context *gin.Context) {
-	email := context.MustGet("email")
-	emailString, _ := email.(string)
-	user, _ := services.GetUserForEmail(emailString)
+	email := context.GetString("email")
+	user, err := services.GetUserForEmail(email)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"error": "failed to find user",
+		})
+		return
+	}
+	var response SecureUserResponse
+	response.ID = user.ID
+	response.Email = user.Email
+	response.Username = user.Username
+	response.Location = user.Location
+	response.CreatedAt = user.CreatedAt
 	context.JSON(http.StatusOK, gin.H{
 		"message": "protected profile",
-		"user":    user,
+		"user":    response,
 	})
 }
 
 func Logout(context *gin.Context) {
-	sessionID, _ := context.Cookie("session_id")
-	deleteSession(sessionID)
-	context.SetCookie("session_id", "", -1, "/", "", false, true)
+	session := sessions.Default(context)
+
+	session.Clear()
+
+	if err := session.Save(); err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": "failed to clear session"})
+		return
+	}
+
 	context.JSON(http.StatusOK, gin.H{"message": "logged out"})
 }

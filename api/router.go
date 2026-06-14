@@ -5,6 +5,7 @@ import (
 
 	"eattheitch/backend/auth"
 	"eattheitch/backend/handler"
+	"eattheitch/backend/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -12,6 +13,7 @@ import (
 
 func SetupRoutes() *gin.Engine {
 	router := gin.Default()
+	middleware.SessionSetup(router)
 
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
@@ -31,19 +33,25 @@ func SetupRoutes() *gin.Engine {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
+
 	router.SetTrustedProxies([]string{})
 
 	router.POST("/auth/register", auth.Register)
 	router.POST("/auth/login", auth.Login)
-	router.GET("/auth/current", auth.IsAuhenticated(), auth.Current)
-	router.POST("/auth/logout", auth.IsAuhenticated(), auth.Logout)
 
-	router.GET("/brands", auth.IsAuhenticated(), handler.GetBrands)
+	protected := router.Group("/")
+	protected.Use(middleware.AuthRequired())
+	{
+		protected.GET("/auth/current", auth.Current)
+		protected.POST("/auth/logout", auth.Logout)
 
-	router.GET("/reviews", auth.IsAuhenticated(), handler.GetReviews)
-	router.POST("/brands/:brandId/reviews", auth.IsAuhenticated(), handler.CreateReview)
-	router.PUT("/reviews/:reviewId", auth.IsAuhenticated(), handler.UpdateReview)
-	router.DELETE("/reviews/:reviewId", auth.IsAuhenticated(), handler.DeleteReview)
+		protected.GET("/brands", handler.GetBrands)
+
+		protected.GET("/reviews", handler.GetReviews)
+		protected.POST("/brands/:brandId/reviews", handler.CreateReview)
+		protected.PUT("/reviews/:reviewId", handler.UpdateReview)
+		protected.DELETE("/reviews/:reviewId", handler.DeleteReview)
+	}
 
 	return router
 }
