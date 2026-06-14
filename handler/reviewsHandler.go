@@ -23,13 +23,13 @@ type NewReviewRequest struct {
 }
 
 type UpdateReviewRequest struct {
-	BrandID          *uuid.UUID `json:"brand_id"`
-	RatingOverall    *int       `json:"rating_overall"`
-	RatingSoftness   *int       `json:"rating_softness"`
-	RatingQuality    *int       `json:"rating_quality"`
-	RatingPriceValue *int       `json:"rating_price_value"`
-	RatingEco        *int       `json:"rating_eco"`
-	Text             *string    `json:"text" binding:"max=500"`
+	Brand            string `json:"brand"`
+	RatingOverall    int    `json:"rating_overall"`
+	RatingSoftness   int    `json:"rating_softness"`
+	RatingQuality    int    `json:"rating_quality"`
+	RatingPriceValue int    `json:"rating_price_value"`
+	RatingEco        int    `json:"rating_eco"`
+	Text             string `json:"text" binding:"max=500"`
 }
 
 func GetReviews(context *gin.Context) {
@@ -50,6 +50,12 @@ func CreateReview(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	brand, err := services.GetBrandForId(brandId)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	var req NewReviewRequest
 	if err := context.ShouldBindJSON(&req); err != nil {
 		context.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
@@ -58,7 +64,7 @@ func CreateReview(context *gin.Context) {
 
 	newReview := models.Review{
 		ID:               uuid.New(),
-		BrandID:          brandId,
+		Brand:            brand.Name,
 		Author:           req.Author,
 		RatingOverall:    req.RatingOverall,
 		RatingSoftness:   req.RatingSoftness,
@@ -102,13 +108,13 @@ func UpdateReview(context *gin.Context) {
 }
 
 func applyReviewUpdate(review *models.Review, req UpdateReviewRequest) {
-	utils.SetIfNotNil(&review.BrandID, req.BrandID)
-	utils.SetIfNotNil(&review.RatingOverall, req.RatingOverall)
-	utils.SetIfNotNil(&review.RatingSoftness, req.RatingSoftness)
-	utils.SetIfNotNil(&review.RatingQuality, req.RatingQuality)
-	utils.SetIfNotNil(&review.RatingPriceValue, req.RatingPriceValue)
-	utils.SetIfNotNil(&review.RatingEco, req.RatingEco)
-	utils.SetIfNotNil(&review.Text, req.Text)
+	utils.SetIfNotNil(&review.Brand, &req.Brand)
+	utils.SetIfNotNil(&review.RatingOverall, &req.RatingOverall)
+	utils.SetIfNotNil(&review.RatingSoftness, &req.RatingSoftness)
+	utils.SetIfNotNil(&review.RatingQuality, &req.RatingQuality)
+	utils.SetIfNotNil(&review.RatingPriceValue, &req.RatingPriceValue)
+	utils.SetIfNotNil(&review.RatingEco, &req.RatingEco)
+	utils.SetIfNotNil(&review.Text, &req.Text)
 }
 
 func DeleteReview(context *gin.Context) {

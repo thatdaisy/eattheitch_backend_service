@@ -6,6 +6,7 @@ import (
 	"errors"
 	"strings"
 
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -13,6 +14,21 @@ const usersFile = "models/mock/users.json"
 
 func SaveUser(newUser *models.User) error {
 	if err := utils.UpsertJSON(usersFile, newUser); err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetUserForId(userId uuid.UUID) (*models.User, error) {
+	user, err := utils.GetJSON[*models.User](usersFile, userId)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
+func UpdateUser(user models.User) error {
+	if err := utils.UpsertJSON(usersFile, &user); err != nil {
 		return err
 	}
 	return nil

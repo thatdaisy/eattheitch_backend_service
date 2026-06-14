@@ -6,6 +6,7 @@ import (
 	"eattheitch/backend/auth"
 	"eattheitch/backend/handler"
 	"eattheitch/backend/middleware"
+	"eattheitch/backend/thirdparty"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -38,12 +39,14 @@ func SetupRoutes() *gin.Engine {
 
 	router.POST("/auth/register", auth.Register)
 	router.POST("/auth/login", auth.Login)
+	router.GET("/countries", thirdparty.GetCountries)
 
 	protected := router.Group("/")
 	protected.Use(middleware.AuthRequired())
 	{
 		protected.GET("/auth/current", auth.Current)
 		protected.POST("/auth/logout", auth.Logout)
+		protected.PUT("/users/:userId", handler.UpdateUser)
 
 		protected.GET("/brands", handler.GetBrands)
 
@@ -53,6 +56,7 @@ func SetupRoutes() *gin.Engine {
 		protected.DELETE("/reviews/:reviewId", handler.DeleteReview)
 
 		protected.GET("/trades", handler.GetTrades)
+		protected.GET("/trades/:tradeId", handler.GetTradeForId)
 		protected.POST("/trades", handler.CreateTrade)
 		protected.PUT("/trades/:tradeId", handler.UpdateTrade)
 		protected.DELETE("/trades/:tradeId", handler.DeleteTrade)

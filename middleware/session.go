@@ -14,7 +14,7 @@ func SessionSetup(router *gin.Engine) {
 
 	store.Options(sessions.Options{
 		Path:     "/",
-		MaxAge:   600, // 10 minutes
+		MaxAge:   6000, // 10 minutes
 		HttpOnly: true,
 		Secure:   false,
 		SameSite: http.SameSiteLaxMode,

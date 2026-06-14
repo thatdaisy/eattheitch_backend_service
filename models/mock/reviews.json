@@ -1,7 +1,7 @@
 [
   {
     "id": "802495b2-03e6-47c7-8394-556291218605",
-    "brand_id": "00000000-0000-0000-0000-000000000000",
+    "brand": "Wollmeise",
     "author": "emmi_the_dog",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -12,7 +12,7 @@
   },
   {
     "id": "b0000012-0000-4000-8000-000000000012",
-    "brand_id": "b0000008-0000-4000-8000-000000000008",
+    "brand": "Sandnes Garn",
     "author": "wool.wanderer",
     "rating_overall": 5,
     "rating_softness": 4,
@@ -24,7 +24,7 @@
   },
   {
     "id": "b0000014-0000-4000-8000-000000000014",
-    "brand_id": "b0000009-0000-4000-8000-000000000009",
+    "brand": "Wollmeise",
     "author": "fibre.folk",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -36,7 +36,7 @@
   },
   {
     "id": "b0000016-0000-4000-8000-000000000016",
-    "brand_id": "b0000010-0000-4000-8000-000000000010",
+    "brand": "Kremke Soul Wool",
     "author": "stitch.witch",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -48,7 +48,7 @@
   },
   {
     "id": "b0000020-0000-4000-8000-000000000020",
-    "brand_id": "b0000012-0000-4000-8000-000000000012",
+    "brand": "BC Garn",
     "author": "knitwear_rebel",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -60,7 +60,7 @@
   },
   {
     "id": "216e51f6-209f-4159-ba8b-cec0437f1ba4",
-    "brand_id": "b0000006-0000-4000-8000-000000000006",
+    "brand": "Isager",
     "author": "emmi_the_dog",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -72,7 +72,7 @@
   },
   {
     "id": "b0000004-0000-4000-8000-000000000004",
-    "brand_id": "b0000002-0000-4000-8000-000000000002",
+    "brand": "Drops Design",
     "author": "knitwear_rebel",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -84,7 +84,7 @@
   },
   {
     "id": "b0000029-0000-4000-8000-000000000029",
-    "brand_id": "b0000012-0000-4000-8000-000000000012",
+    "brand": "BC Garn",
     "author": "stitch.witch",
     "rating_overall": 5,
     "rating_softness": 4,
@@ -96,7 +96,7 @@
   },
   {
     "id": "b0000023-0000-4000-8000-000000000023",
-    "brand_id": "b0000014-0000-4000-8000-000000000014",
+    "brand": "Lang Yarns",
     "author": "emmi_the_dog",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -108,7 +108,7 @@
   },
   {
     "id": "b0000022-0000-4000-8000-000000000022",
-    "brand_id": "b0000013-0000-4000-8000-000000000013",
+    "brand": "Noro",
     "author": "wool.wanderer",
     "rating_overall": 3,
     "rating_softness": 3,
@@ -120,7 +120,7 @@
   },
   {
     "id": "b0000021-0000-4000-8000-000000000021",
-    "brand_id": "b0000013-0000-4000-8000-000000000013",
+    "brand": "Noro",
     "author": "stitch.witch",
     "rating_overall": 4,
     "rating_softness": 3,
@@ -132,7 +132,7 @@
   },
   {
     "id": "b0000024-0000-4000-8000-000000000024",
-    "brand_id": "b0000014-0000-4000-8000-000000000014",
+    "brand": "Lang Yarns",
     "author": "fibre.folk",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -144,7 +144,7 @@
   },
   {
     "id": "b0000002-0000-4000-8000-000000000002",
-    "brand_id": "b0000001-0000-4000-8000-000000000001",
+    "brand": "Malabrigo",
     "author": "wool.wanderer",
     "rating_overall": 4,
     "rating_softness": 5,
@@ -156,7 +156,7 @@
   },
   {
     "id": "b0000019-0000-4000-8000-000000000019",
-    "brand_id": "b0000011-0000-4000-8000-000000000011",
+    "brand": "Filcolana",
     "author": "fibre.folk",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -168,7 +168,7 @@
   },
   {
     "id": "b0000005-0000-4000-8000-000000000005",
-    "brand_id": "b0000003-0000-4000-8000-000000000003",
+    "brand": "Lana Grossa",
     "author": "fibre.folk",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -180,7 +180,7 @@
   },
   {
     "id": "b0000028-0000-4000-8000-000000000028",
-    "brand_id": "b0000006-0000-4000-8000-000000000006",
+    "brand": "Isager",
     "author": "emmi_the_dog",
     "rating_overall": 5,
     "rating_softness": 4,
@@ -192,7 +192,7 @@
   },
   {
     "id": "6249a982-4ae3-4395-9a8f-5b9c6ea1aef9",
-    "brand_id": "b0000006-0000-4000-8000-000000000006",
+    "brand": "Isager",
     "author": "emmi_the_dog",
     "rating_overall": 2,
     "rating_softness": 2,
@@ -204,7 +204,7 @@
   },
   {
     "id": "d610256c-7d14-4a01-b2c1-8d731b477eb0",
-    "brand_id": "b0000015-0000-4000-8000-000000000015",
+    "brand": "Hedgehog Fibres",
     "author": "emmi_the_dog",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -216,7 +216,7 @@
   },
   {
     "id": "f5af34eb-2aed-4ed6-ab38-c7e3078eb6f1",
-    "brand_id": "b0000015-0000-4000-8000-000000000015",
+    "brand": "Hedgehog Fibres",
     "author": "emmi_the_dog",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -228,7 +228,7 @@
   },
   {
     "id": "b0000015-0000-4000-8000-000000000015",
-    "brand_id": "b0000009-0000-4000-8000-000000000009",
+    "brand": "Wollmeise",
     "author": "knitwear_rebel",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -240,7 +240,7 @@
   },
   {
     "id": "b0000025-0000-4000-8000-000000000025",
-    "brand_id": "b0000015-0000-4000-8000-000000000015",
+    "brand": "Hedgehog Fibres",
     "author": "knitwear_rebel",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -252,7 +252,7 @@
   },
   {
     "id": "b0000018-0000-4000-8000-000000000018",
-    "brand_id": "b0000011-0000-4000-8000-000000000011",
+    "brand": "Filcolana",
     "author": "emmi_the_dog",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -264,7 +264,7 @@
   },
   {
     "id": "b0000030-0000-4000-8000-000000000030",
-    "brand_id": "b0000003-0000-4000-8000-000000000003",
+    "brand": "Lana Grossa",
     "author": "knitwear_rebel",
     "rating_overall": 3,
     "rating_softness": 4,
@@ -276,7 +276,7 @@
   },
   {
     "id": "b0000006-0000-4000-8000-000000000006",
-    "brand_id": "b0000004-0000-4000-8000-000000000004",
+    "brand": "West Yorkshire Spinners",
     "author": "stitch.witch",
     "rating_overall": 5,
     "rating_softness": 4,
@@ -288,7 +288,7 @@
   },
   {
     "id": "b0000003-0000-4000-8000-000000000003",
-    "brand_id": "b0000002-0000-4000-8000-000000000002",
+    "brand": "Drops Design",
     "author": "emmi_the_dog",
     "rating_overall": 4,
     "rating_softness": 3,
@@ -300,7 +300,7 @@
   },
   {
     "id": "b0000007-0000-4000-8000-000000000007",
-    "brand_id": "b0000004-0000-4000-8000-000000000004",
+    "brand": "West Yorkshire Spinners",
     "author": "wool.wanderer",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -312,7 +312,7 @@
   },
   {
     "id": "b0000011-0000-4000-8000-000000000011",
-    "brand_id": "b0000007-0000-4000-8000-000000000007",
+    "brand": "Rowan",
     "author": "stitch.witch",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -324,7 +324,7 @@
   },
   {
     "id": "b0000027-0000-4000-8000-000000000027",
-    "brand_id": "b0000005-0000-4000-8000-000000000005",
+    "brand": "Cascade Yarns",
     "author": "wool.wanderer",
     "rating_overall": 4,
     "rating_softness": 3,
@@ -336,7 +336,7 @@
   },
   {
     "id": "b0000001-0000-4000-8000-000000000001",
-    "brand_id": "b0000001-0000-4000-8000-000000000001",
+    "brand": "Malabrigo",
     "author": "stitch.witch",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -348,7 +348,7 @@
   },
   {
     "id": "b0000026-0000-4000-8000-000000000026",
-    "brand_id": "b0000015-0000-4000-8000-000000000015",
+    "brand": "Hedgehog Fibres",
     "author": "stitch.witch",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -360,7 +360,7 @@
   },
   {
     "id": "b0000010-0000-4000-8000-000000000010",
-    "brand_id": "b0000007-0000-4000-8000-000000000007",
+    "brand": "Rowan",
     "author": "knitwear_rebel",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -372,7 +372,7 @@
   },
   {
     "id": "b0000009-0000-4000-8000-000000000009",
-    "brand_id": "b0000006-0000-4000-8000-000000000006",
+    "brand": "Isager",
     "author": "fibre.folk",
     "rating_overall": 5,
     "rating_softness": 5,
@@ -384,7 +384,7 @@
   },
   {
     "id": "b0000008-0000-4000-8000-000000000008",
-    "brand_id": "b0000005-0000-4000-8000-000000000005",
+    "brand": "Cascade Yarns",
     "author": "emmi_the_dog",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -396,7 +396,7 @@
   },
   {
     "id": "b0000013-0000-4000-8000-000000000013",
-    "brand_id": "b0000008-0000-4000-8000-000000000008",
+    "brand": "Sandnes Garn",
     "author": "emmi_the_dog",
     "rating_overall": 4,
     "rating_softness": 4,
@@ -408,7 +408,7 @@
   },
   {
     "id": "b0000017-0000-4000-8000-000000000017",
-    "brand_id": "b0000010-0000-4000-8000-000000000010",
+    "brand": "Kremke Soul Wool",
     "author": "wool.wanderer",
     "rating_overall": 4,
     "rating_softness": 5,
@@ -417,5 +417,53 @@
     "rating_eco": 5,
     "text": "Everything about Kremke is considered — from the fibres they choose to the way they package the yarn. The Berlin aesthetic suits my style perfectly. Stellaris is a showstopper for shawls. My one wish is a wider colour range in the eco lines.",
     "created_at": "2025-04-05T14:30:00Z"
+  },
+  {
+    "id": "70a83473-2322-4b7d-b5c5-1dfc7d02f84d",
+    "brand": "Hedgehog Fibres",
+    "author": "emmi_the_dog",
+    "rating_overall": 5,
+    "rating_softness": 5,
+    "rating_quality": 4,
+    "rating_price_value": 4,
+    "rating_eco": 5,
+    "text": "This is a test review i want to DELETE",
+    "created_at": "2026-06-15T22:12:00.266786+02:00"
+  },
+  {
+    "id": "74c84831-7d3d-481f-bd5d-cfcb8aec2457",
+    "brand": "Hedgehog Fibres",
+    "author": "emmi_the_dog",
+    "rating_overall": 5,
+    "rating_softness": 5,
+    "rating_quality": 4,
+    "rating_price_value": 4,
+    "rating_eco": 5,
+    "text": "This is a test review i want to DELETE",
+    "created_at": "2026-06-15T22:12:11.834656+02:00"
+  },
+  {
+    "id": "0a74482b-0ed6-4c5d-9819-90fb5a928f1b",
+    "brand": "Hedgehog Fibres",
+    "author": "emmi_the_dog",
+    "rating_overall": 5,
+    "rating_softness": 5,
+    "rating_quality": 4,
+    "rating_price_value": 4,
+    "rating_eco": 5,
+    "text": "This is a test review i want to DELETE",
+    "created_at": "2026-06-15T22:12:12.833885+02:00"
+  },
+  {
+    "id": "65768d1e-9327-44f2-921f-20de9140fee1",
+    "brand": "Hedgehog Fibres",
+    "author": "emmi_the_dog",
+    "rating_overall": 5,
+    "rating_softness": 5,
+    "rating_quality": 4,
+    "rating_price_value": 4,
+    "rating_eco": 5,
+    "text": "This is a test review i want to DELETE",
+    "created_at": "2026-06-15T22:12:13.868882+02:00"
   }
 ]

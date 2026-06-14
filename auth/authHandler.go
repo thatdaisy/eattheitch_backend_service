@@ -1,28 +1,19 @@
 package auth
 
 import (
+	"eattheitch/backend/handler"
 	"eattheitch/backend/services"
-	"time"
 
 	"log"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 type LoginRequest struct {
 	Email    string `json:"email" binding:"required,email"`
 	Password string `json:"password" binding:"required,min=8"`
-}
-
-type SecureUserResponse struct {
-	ID        uuid.UUID `json:"id"`
-	Username  string    `json:"username"`
-	Email     string    `json:"email"`
-	Location  string    `json:"location,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
 }
 
 func Login(context *gin.Context) {
@@ -60,12 +51,14 @@ func Current(context *gin.Context) {
 		})
 		return
 	}
-	var response SecureUserResponse
-	response.ID = user.ID
-	response.Email = user.Email
-	response.Username = user.Username
-	response.Location = user.Location
-	response.CreatedAt = user.CreatedAt
+
+	response := handler.SecureUserResponse{
+		ID:        user.ID,
+		Email:     user.Email,
+		Username:  user.Username,
+		Location:  user.Location,
+		CreatedAt: user.CreatedAt,
+	}
 	context.JSON(http.StatusOK, gin.H{
 		"message": "protected profile",
 		"user":    response,

@@ -7,9 +7,9 @@ import (
 )
 
 type Review struct {
-	ID      uuid.UUID `json:"id"`
-	BrandID uuid.UUID `json:"brand_id"`
-	Author  string    `json:"author"`
+	ID     uuid.UUID `json:"id"`
+	Brand  string    `json:"brand"`
+	Author string    `json:"author"`
 
 	RatingOverall    int `json:"rating_overall"`
 	RatingSoftness   int `json:"rating_softness"`

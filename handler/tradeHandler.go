@@ -4,7 +4,6 @@ import (
 	"eattheitch/backend/models"
 	"eattheitch/backend/services"
 	"eattheitch/backend/utils"
-	"log"
 	"net/http"
 	"time"
 
@@ -30,13 +29,28 @@ type UpdateTradeRequest struct {
 func GetTrades(context *gin.Context) {
 	trades, err := services.GetTrades()
 	if err != nil {
-		log.Printf("ERROR LoadingTrades %s", err)
 		context.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
 	context.JSON(http.StatusOK, trades)
+}
+
+func GetTradeForId(context *gin.Context) {
+	tradeId, err := uuid.Parse(context.Param("tradeId"))
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	trade, err := services.GetTradeForId(tradeId)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	context.JSON(http.StatusOK, trade)
 }
 
 func CreateTrade(context *gin.Context) {
@@ -57,7 +71,6 @@ func CreateTrade(context *gin.Context) {
 	}
 
 	services.CreateTrade(newTrade)
-
 	context.JSON(http.StatusOK, newTrade)
 }
 

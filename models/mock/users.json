@@ -3,6 +3,7 @@
     "id": "e4e02652-59bb-4f79-a676-e76239129cb4",
     "username": "emmi_the_dog",
     "email": "emmi@example.com",
+    "location": "Austria",
     "created_at": "0001-01-01T00:00:00Z",
     "passwordHash": "$2a$10$4VmNMLWFjmOK1zfWAebU3.9xSwIL5uXOfNPDQt5YEHea4UNeHpLdO"
   },

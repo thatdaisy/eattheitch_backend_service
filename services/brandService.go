@@ -5,6 +5,8 @@ import (
 	"eattheitch/backend/models"
 	"eattheitch/backend/utils"
 	"slices"
+
+	"github.com/google/uuid"
 )
 
 const brandsFile = "models/mock/brands.json"
@@ -80,4 +82,12 @@ func GetBrandsSorted(sort SortOrder) ([]*models.Brand, error) {
 		})
 	}
 	return brands, nil
+}
+
+func GetBrandForId(brandId uuid.UUID) (*models.Brand, error) {
+	brand, err := utils.GetJSON[*models.Brand](brandsFile, brandId)
+	if err != nil {
+		return nil, err
+	}
+	return brand, nil
 }

@@ -3,7 +3,6 @@ package services
 import (
 	"eattheitch/backend/models"
 	"eattheitch/backend/utils"
-	"errors"
 	"slices"
 
 	"github.com/google/uuid"
@@ -30,16 +29,11 @@ func CreateTrade(newTrade models.Trade) error {
 }
 
 func GetTradeForId(tradeId uuid.UUID) (*models.Trade, error) {
-	trades, err := utils.ReadJSON[*models.Trade](tradesFile)
+	trade, err := utils.GetJSON[*models.Trade](tradesFile, tradeId)
 	if err != nil {
 		return nil, err
 	}
-	for _, trade := range trades {
-		if trade.ID == tradeId {
-			return trade, nil
-		}
-	}
-	return nil, errors.New("trade not found " + tradeId.String())
+	return trade, nil
 }
 
 func UpdateTrade(trade models.Trade) error {

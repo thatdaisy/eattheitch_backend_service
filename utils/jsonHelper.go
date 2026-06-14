@@ -40,6 +40,23 @@ func UpsertJSON[T Identifiable](path string, item T) error {
 	return nil
 }
 
+func GetJSON[T Identifiable](path string, id uuid.UUID) (T, error) {
+	items, err := ReadJSON[T](path)
+	if err != nil {
+		var zero T
+		return zero, fmt.Errorf("read %s: %w", path, err)
+	}
+
+	for _, item := range items {
+		if item.GetID() == id {
+			return item, nil
+		}
+	}
+
+	var zero T
+	return zero, ErrNotFound
+}
+
 func DeleteJSON[T Identifiable](path string, id uuid.UUID) error {
 	items, err := ReadJSON[T](path)
 	if err != nil {
