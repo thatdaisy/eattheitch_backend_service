@@ -51,6 +51,11 @@ func SetupRoutes() *gin.Engine {
 		protected.POST("/brands/:brandId/reviews", handler.CreateReview)
 		protected.PUT("/reviews/:reviewId", handler.UpdateReview)
 		protected.DELETE("/reviews/:reviewId", handler.DeleteReview)
+
+		protected.GET("/trades", handler.GetTrades)
+		protected.POST("/trades", handler.CreateTrade)
+		protected.PUT("/trades/:tradeId", handler.UpdateTrade)
+		protected.DELETE("/trades/:tradeId", handler.DeleteTrade)
 	}
 
 	return router

@@ -17,7 +17,7 @@ type Review struct {
 	RatingPriceValue int `json:"rating_price_value"`
 	RatingEco        int `json:"rating_eco"`
 
-	Text string `json:"text"`
+	Text string `json:"text,omitempty"`
 
 	CreatedAt time.Time `json:"created_at"`
 }
