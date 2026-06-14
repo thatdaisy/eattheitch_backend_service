@@ -31,6 +31,7 @@ func SetupRoutes() *gin.Engine {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
+	router.SetTrustedProxies([]string{})
 
 	router.POST("/auth/register", auth.Register)
 	router.POST("/auth/login", auth.Login)
@@ -40,6 +41,7 @@ func SetupRoutes() *gin.Engine {
 	router.GET("/brands", auth.IsAuhenticated(), handler.GetBrands)
 
 	router.GET("/reviews", auth.IsAuhenticated(), handler.GetReviews)
+	router.POST("/brands/:brandId/reviews", auth.IsAuhenticated(), handler.CreateReview)
 
 	return router
 }

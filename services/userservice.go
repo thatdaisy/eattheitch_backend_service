@@ -13,21 +13,12 @@ import (
 
 const usersFile = "models/mock/users.json"
 
-func LoadUsers() ([]models.User, error) {
-	data, err := utils.ReadJson(usersFile)
+func SaveUser(newUser models.User) error {
+	users, err := loadUsers()
 	if err != nil {
-		log.Printf("could not read users from users.json - %s", err.Error())
-		return []models.User{}, nil
+		return err
 	}
-
-	var users []models.User
-	if err := json.Unmarshal(data, &users); err != nil {
-		return nil, err
-	}
-	return users, nil
-}
-
-func SaveUsers(users []models.User) error {
+	users = append(users, newUser)
 	if err := utils.WriteJson(usersFile, users); err != nil {
 		return err
 	}
@@ -35,7 +26,7 @@ func SaveUsers(users []models.User) error {
 }
 
 func GetUserForEmail(email string) (*models.User, error) {
-	users, err := LoadUsers()
+	users, err := loadUsers()
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +40,7 @@ func GetUserForEmail(email string) (*models.User, error) {
 }
 
 func GetUserForUsername(username string) (*models.User, error) {
-	users, err := LoadUsers()
+	users, err := loadUsers()
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +52,7 @@ func GetUserForUsername(username string) (*models.User, error) {
 	return nil, errors.New("user not found " + username)
 }
 
-func hashUserPassword(password string) ([]byte, error) {
+func HashUserPassword(password string) ([]byte, error) {
 	passwordHash, err := bcrypt.GenerateFromPassword(
 		[]byte(password),
 		bcrypt.DefaultCost,
@@ -81,4 +72,18 @@ func VerifyUserPassword(email string, password string) error {
 		return compareResult
 	}
 	return nil
+}
+
+func loadUsers() ([]models.User, error) {
+	data, err := utils.ReadJson(usersFile)
+	if err != nil {
+		log.Printf("could not read users from users.json - %s", err.Error())
+		return []models.User{}, nil
+	}
+
+	var users []models.User
+	if err := json.Unmarshal(data, &users); err != nil {
+		return nil, err
+	}
+	return users, nil
 }

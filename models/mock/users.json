@@ -26,5 +26,12 @@
     "email": "wool.wanderer@example.com",
     "created_at": "0001-01-01T00:00:00Z",
     "passwordHash": "$2a$10$Brh01uvip0XxgMsWM6pBbub4aroa.rec9xiEOgCsY33GBfuCmCj1."
+  },
+  {
+    "id": "847a9bcd-230f-4149-b24d-e711394e97b5",
+    "username": "fibre.folk",
+    "email": "fibre.folk@example.com",
+    "created_at": "0001-01-01T00:00:00Z",
+    "passwordHash": "$2a$10$FkPrOIP3v1VEHDKJIsbLuek2IX99N4af22BzqtCove2F8q3xydala"
   }
 ]

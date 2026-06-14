@@ -358,5 +358,41 @@
     "rating_eco": 2,
     "text": "Lana Grossa makes genuinely nice yarn but the eco credentials are the weakest of any premium brand I've tried. A single Oeko-Tex certification is table stakes in 2025. The Cool Wool line is excellent but I can't give top marks to a brand that isn't trying harder on sustainability.",
     "created_at": "2025-05-01T09:30:00Z"
+  },
+  {
+    "id": "802495b2-03e6-47c7-8394-556291218605",
+    "brand_id": "00000000-0000-0000-0000-000000000000",
+    "author": "emmi_the_dog",
+    "rating_overall": 5,
+    "rating_softness": 5,
+    "rating_quality": 4,
+    "rating_price_value": 4,
+    "rating_eco": 5,
+    "text": "",
+    "created_at": "2026-06-14T13:28:22.078863+02:00"
+  },
+  {
+    "id": "6249a982-4ae3-4395-9a8f-5b9c6ea1aef9",
+    "brand_id": "00000000-0000-0000-0000-000000000000",
+    "author": "emmi_the_dog",
+    "rating_overall": 5,
+    "rating_softness": 5,
+    "rating_quality": 4,
+    "rating_price_value": 4,
+    "rating_eco": 5,
+    "text": "This is a test rating",
+    "created_at": "2026-06-14T13:29:24.460378+02:00"
+  },
+  {
+    "id": "f5af34eb-2aed-4ed6-ab38-c7e3078eb6f1",
+    "brand_id": "b0000015-0000-4000-8000-000000000015",
+    "author": "emmi_the_dog",
+    "rating_overall": 5,
+    "rating_softness": 5,
+    "rating_quality": 4,
+    "rating_price_value": 4,
+    "rating_eco": 5,
+    "text": "This is a test rating",
+    "created_at": "2026-06-14T13:31:28.772145+02:00"
   }
 ]

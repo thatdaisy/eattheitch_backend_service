@@ -26,11 +26,10 @@ func CreateReview(newReview models.Review) error {
 	if err != nil {
 		return err
 	}
-	slices.SortFunc(reviews, func(a, b models.Review) int {
-		return b.CreatedAt.Compare(a.CreatedAt)
-	})
 	reviews = append(reviews, newReview)
-
+	if err := utils.WriteJson(reviewsFile, reviews); err != nil {
+		return err
+	}
 	return nil
 }
 

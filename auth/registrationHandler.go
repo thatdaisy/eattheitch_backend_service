@@ -4,10 +4,10 @@ import (
 	"eattheitch/backend/models"
 	"eattheitch/backend/services"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type RegisterRequest struct {
@@ -30,14 +30,6 @@ func Register(context *gin.Context) {
 		return
 	}
 
-	users, err := services.LoadUsers()
-	if err != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{
-			"error": "failed to load existing users",
-		})
-		return
-	}
-
 	checkEmail, _ := services.GetUserForEmail(req.Email)
 	checkUsername, _ := services.GetUserForUsername(req.Email)
 	if checkEmail != nil || checkUsername != nil {
@@ -47,7 +39,7 @@ func Register(context *gin.Context) {
 		return
 	}
 
-	passwordHash, err := hashUserPassword(req.Password)
+	passwordHash, err := services.HashUserPassword(req.Password)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{
 			"error": "failed to process password",
@@ -60,11 +52,10 @@ func Register(context *gin.Context) {
 		Username:     req.Username,
 		Email:        req.Email,
 		PasswordHash: string(passwordHash),
+		CreatedAt:    time.Now(),
 	}
 
-	users = append(users, newUser)
-
-	if err := services.SaveUsers(users); err != nil {
+	if err := services.SaveUser(newUser); err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{
 			"error": "failed to save user",
 		})
@@ -77,15 +68,4 @@ func Register(context *gin.Context) {
 	context.JSON(http.StatusCreated, AuthResponse{
 		User: responseUser,
 	})
-}
-
-func hashUserPassword(password string) ([]byte, error) {
-	passwordHash, err := bcrypt.GenerateFromPassword(
-		[]byte(password),
-		bcrypt.DefaultCost,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return passwordHash, nil
 }
