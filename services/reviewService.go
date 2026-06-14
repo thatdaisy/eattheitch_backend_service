@@ -48,3 +48,10 @@ func UpdateReview(review models.Review) error {
 	}
 	return nil
 }
+
+func DeleteReview(id uuid.UUID) error {
+	if err := utils.DeleteJSON[*models.Review](reviewsFile, id); err != nil {
+		return err
+	}
+	return nil
+}

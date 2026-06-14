@@ -43,6 +43,7 @@ func SetupRoutes() *gin.Engine {
 	router.GET("/reviews", auth.IsAuhenticated(), handler.GetReviews)
 	router.POST("/brands/:brandId/reviews", auth.IsAuhenticated(), handler.CreateReview)
 	router.PUT("/reviews/:reviewId", auth.IsAuhenticated(), handler.UpdateReview)
+	router.DELETE("/reviews/:reviewId", auth.IsAuhenticated(), handler.DeleteReview)
 
 	return router
 }

@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 
@@ -11,6 +12,8 @@ import (
 type Identifiable interface {
 	GetID() uuid.UUID
 }
+
+var ErrNotFound = errors.New("data: no element with the given id found")
 
 func UpsertJSON[T Identifiable](path string, item T) error {
 	items, err := ReadJSON[T](path)
@@ -27,6 +30,35 @@ func UpsertJSON[T Identifiable](path string, item T) error {
 		}
 	}
 	if !found {
+		items = append(items, item)
+	}
+
+	if err := writeJSONArray(path, items); err != nil {
+		return fmt.Errorf("write %s: %w", path, err)
+	}
+
+	return nil
+}
+
+func DeleteJSON[T Identifiable](path string, id uuid.UUID) error {
+	items, err := ReadJSON[T](path)
+	if err != nil {
+		return fmt.Errorf("read %s: %w", path, err)
+	}
+
+	itemMap := make(map[uuid.UUID]T)
+	for _, item := range items {
+		itemMap[item.GetID()] = item
+	}
+
+	_, exists := itemMap[id]
+	if exists {
+		delete(itemMap, id)
+	}
+
+	items = make([]T, 0, len(itemMap))
+
+	for _, item := range itemMap {
 		items = append(items, item)
 	}
 

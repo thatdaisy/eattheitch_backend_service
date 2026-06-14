@@ -110,3 +110,12 @@ func applyReviewUpdate(review *models.Review, req UpdateReviewRequest) {
 	utils.SetIfNotNil(&review.RatingEco, req.RatingEco)
 	utils.SetIfNotNil(&review.Text, req.Text)
 }
+
+func DeleteReview(context *gin.Context) {
+	reviewId, err := uuid.Parse(context.Param("reviewId"))
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	services.DeleteReview(reviewId)
+}
