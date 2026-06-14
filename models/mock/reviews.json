@@ -373,14 +373,14 @@
   },
   {
     "id": "6249a982-4ae3-4395-9a8f-5b9c6ea1aef9",
-    "brand_id": "00000000-0000-0000-0000-000000000000",
+    "brand_id": "b0000006-0000-4000-8000-000000000006",
     "author": "emmi_the_dog",
-    "rating_overall": 5,
-    "rating_softness": 5,
-    "rating_quality": 4,
+    "rating_overall": 2,
+    "rating_softness": 2,
+    "rating_quality": 2,
     "rating_price_value": 4,
     "rating_eco": 5,
-    "text": "This is a test rating",
+    "text": "This is a UPDATED rating",
     "created_at": "2026-06-14T13:29:24.460378+02:00"
   },
   {

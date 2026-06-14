@@ -41,3 +41,10 @@ func GetReviewForId(reviewId uuid.UUID) (*models.Review, error) {
 	}
 	return nil, errors.New("review not found " + reviewId.String())
 }
+
+func UpdateReview(review models.Review) error {
+	if err := utils.UpsertJSON(reviewsFile, &review); err != nil {
+		return err
+	}
+	return nil
+}

@@ -93,8 +93,11 @@ func UpdateReview(context *gin.Context) {
 	}
 
 	applyReviewUpdate(updateReview, req)
-	utils.UpsertJSON("", updateReview)
 
+	if err := services.UpdateReview(*updateReview); err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 	context.JSON(http.StatusOK, updateReview)
 }
 
