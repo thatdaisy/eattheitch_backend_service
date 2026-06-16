@@ -49,6 +49,7 @@ func SetupRoutes() *gin.Engine {
 		protected.PUT("/users/:userId", handler.UpdateUser)
 
 		protected.GET("/brands", handler.GetBrands)
+		protected.GET("/brands/:brandId", handler.GetBrandForId)
 
 		protected.GET("/reviews", handler.GetReviews)
 		protected.POST("/brands/:brandId/reviews", handler.CreateReview)

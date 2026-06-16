@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 type BrandsResponse struct {
@@ -55,4 +56,20 @@ func GetBrands(context *gin.Context) {
 	response.TotalPages = totalPages
 
 	context.JSON(http.StatusOK, response)
+}
+
+func GetBrandForId(context *gin.Context) {
+	brandId, err := uuid.Parse(context.Param("brandId"))
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	brand, err := services.GetBrandForId(brandId)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	context.JSON(http.StatusOK, brand)
 }
