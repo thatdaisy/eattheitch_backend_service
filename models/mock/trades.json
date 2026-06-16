@@ -61,5 +61,50 @@
     "title": "Wollmeise Pure Trade",
     "text": "Offering two skeins of Wollmeise Pure. Open to similar luxury merino yarns.",
     "created_at": "2026-06-12T12:05:00Z"
+  },
+  {
+    "id": "b3e91a2c-4d7f-4e1b-9a6c-1f8d3e5a7b2c",
+    "author": "emmi_the_dog",
+    "brand_name": "Malabrigo",
+    "location": "Austria",
+    "title": "Rios Worsted Swap",
+    "text": "Got extra Rios skeins!\nSuper soft, want to trade for something squishy?",
+    "created_at": "2026-06-15T10:30:00Z"
+  },
+  {
+    "id": "c7d4f8e1-2b6a-49c3-8e7d-5a1f9c3b6e4d",
+    "author": "emmi_the_dog",
+    "brand_name": "Drops Design",
+    "location": "Austria",
+    "title": "Nepal Stash Clearout",
+    "text": "Clearing out my Drops Nepal stash.\nGreat for sweaters, anyone interested?",
+    "created_at": "2026-06-13T15:45:00Z"
+  },
+  {
+    "id": "e2a6b9d3-7c1f-4a8e-9b5d-3f7e1c4a8b6d",
+    "author": "emmi_the_dog",
+    "brand_name": "Cascade Yarns",
+    "location": "Austria",
+    "title": "220 Worsted Wishlist",
+    "text": "Have a pile of Cascade 220 spare!\nWould love some hand-dyed colourways in trade.",
+    "created_at": "2026-06-11T08:20:00Z"
+  },
+  {
+    "id": "f9c3e7a5-4b2d-48f1-a6c9-7d2e5b8f1c3a",
+    "author": "emmi_the_dog",
+    "brand_name": "Filcolana",
+    "location": "Austria",
+    "title": "Peruvian Highland Trade",
+    "text": "Want some lovely Filcolana wool?\nHave extra Peruvian Highland, looking for tweedy alternatives.",
+    "created_at": "2026-06-10T13:00:00Z"
+  },
+  {
+    "id": "a1d8f4b6-9e3c-47a2-8b5d-6c1f9a3e7d2b",
+    "author": "emmi_the_dog",
+    "brand_name": "BC Garn",
+    "location": "Austria",
+    "title": "Semilla Cotton Swap",
+    "text": "Lovely organic cotton skeins, barely used!\nOpen to trading for other plant-based fibers.",
+    "created_at": "2026-06-06T11:10:00Z"
   }
 ]
